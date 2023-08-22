@@ -4,6 +4,7 @@ import com.pintor.mybatis.article.dto.Article;
 import com.pintor.mybatis.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,12 +18,12 @@ public class ArticleController {
 
     private final ArticleService articleService;
 
-    @GetMapping("/list")
-    @ResponseBody
-    public String list() {
+    @GetMapping("")
+    public String list(Model model) {
 
-        List<Article> articles = this.articleService.getArticles();
+        List<Article> articleList = this.articleService.getArticles();
+        model.addAttribute("articleList", articleList);
 
-        return "리스트 페이지";
+        return "article/list";
     }
 }
